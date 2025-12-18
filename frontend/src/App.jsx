@@ -56,8 +56,8 @@ function App() {
     <Stack alignItems="center" justifyContent="center" spacing={10} sx={{ 
       minHeight: "auto",  // fill viewport
       maxHeight: "100vh",  // fill viewport
-      width: "100%",
-      p: 1,
+      width: "auto",
+      p: 2,
       mx: 0,
     }}>
       <TypeAnimation
@@ -87,11 +87,11 @@ function App() {
         style={{ fontSize: '12vw', fontOpticalSizing: 'auto'}}
       />
       <Paper square={false} elevation={5} sx={{ 
-        p: "2vw", 
-        m: "5vw", 
+        p: "1vw", 
+        m: "3vw", 
         minWidth: ".9",
-        width: "98vw",  // responsive
-        maxWidth: ".8",
+        width: "100vw",  // responsive
+        maxWidth: "90vw",
       }} align="center">
           {status && <div>{status}</div>}
             <Stack component="form" onSubmit={handleSubmit} alignItems="center" spacing={5} sx={{
@@ -103,7 +103,7 @@ function App() {
                   // Target the input element inside TextField
                   '& .MuiInputBase-input': {
                   fontSize: '4vw', // Your desired font size
-                  p: '2vw'
+                  p: '4vw'
                 },
                 }}
                 id="filled-multiline-static" 
