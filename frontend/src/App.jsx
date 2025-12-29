@@ -5,7 +5,8 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Button from "@mui/material/Button";
-import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Avatar from '@mui/material/Avatar';
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
         return;
       }
       const data = await res.json();
+      // setStatus(`SIZE: ${data}`);
       setStatus("Upload ok");
     } catch (err) {
       console.error("Full error:", err);
@@ -103,6 +105,7 @@ function App() {
                   // Target the input element inside TextField
                   '& .MuiInputBase-input': {
                   fontSize: '4vw', // Your desired font size
+                  lineHeight: 1.2, 
                   p: '4vw'
                 },
                 }}
@@ -123,7 +126,13 @@ function App() {
             </Stack>
             {file && <div>{file.name}</div>}
           </Paper>
-    </Stack>
+          {/*
+          <Avatar sx={{pb: "12vh"}}   variant={"rounded"} alt="The image" src={"https://heyanniewei.com/api/latest/image"} style={{
+            width: 800,
+            height: 480,
+          }} />
+          */}
+      </Stack>
     </ThemeProvider>
   );
 }

@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, send_from_directory
 import os, uuid, json
+from image import process_image
 
 # info used by newest image API endpoint
 UPLOAD_FOLDER = '/var/www/uploads'
@@ -28,7 +29,8 @@ def upload():
     file = request.files.get("photo")
 
     if not text:
-        return jsonify({"error": "Text is required"}), 400
+        # return jsonify({"error": "Text is required"}), 400
+        text = "n/a"
     if not file:
         return jsonify({"error": "Photo is required"}), 400
 
@@ -37,7 +39,11 @@ def upload():
     path = os.path.join(app.config["UPLOAD_FOLDER"], name)
     file.save(path)
 
-    save_latest_metadata(name, text)
+    # PROCESS UPLOADED IMAG
+    new_name = process_image(name, text)
+    #return jsonify({"error": process_status}), 400
+
+    save_latest_metadata(new_name, text)
     return jsonify({"ok": True, "filename": name})
 
 @app.route("/api/latest", methods=["GET"])
