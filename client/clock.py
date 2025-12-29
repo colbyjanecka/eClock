@@ -1,12 +1,25 @@
 import csv
 import random
 from datetime import datetime
-#from PIL import Image, ImageDraw, ImageFont
-from pudzu.pillar import Image, ImageDraw, ImageFont, sans
+from PIL import Image, ImageDraw, ImageFont
+#from pudzu.pillar import Image, ImageDraw, ImageFont, sans
 import textwrap
 
+def split_quote_with_tag(quote, tag):
+    """Split quote into [before, tag, after] - returns 3 parts as list"""
+    idx = quote.find(tag)
+    if idx == -1:
+        # Tag not found: return whole quote as first part, empty tag/after
+        return [quote, "", ""]
+    
+    return [
+        quote[:idx],      # before tag
+        tag,              # the tag itself
+        quote[idx + len(tag):]  # after tag
+    ]
+
 def generate_clock_image():
-    font = ImageFont.truetype(font='lib/StardewValley.ttf', size=12)
+    font = ImageFont.truetype(font='lib/StardewValley.ttf', size=50)
     font_large = ImageFont.truetype(font='lib/StardewValley.ttf', size=30)
     img = Image.new(mode = "RGB", size = (800, 480), color = (255, 255, 255))
 
@@ -14,19 +27,22 @@ def generate_clock_image():
     quote = entry['quote']
     source = entry['source'] + ", " + entry['author']
 
-    quote = textwrap.fill(text=quote, width=39)
+    quote_spit = split_quote_with_tag(quote, entry['tag'])
+    print(quote_spit)
+
+    quote = textwrap.fill(text=quote, width=37)
 
     draw = ImageDraw.Draw(im=img)
     draw.text(xy=(25, 25), text=quote, font=font, fill='#000000')
-    draw.text(xy=(25, 420), text=source, font=font_large, fill='#000000')
+    draw.text(xy=(75, 430), text=source, font=font_large, fill='#000000')
 
-    img2 = Image.from_multitext(["The ", "rain ", "in ", "Spain"],
-        font,
-        ["white", "red", "white", "white"], "#1f5774")
-
+    book_icon = Image.open("lib/book.png")  # or Image.open("book.png")
+    
+    # After creating your main img with quote/source
+    img.paste(book_icon, (5, 410), book_icon)
 
     print("saving clock image file")
-    img2.save("latest.png")
+    img.save("latest.png")
 
 
 

@@ -105,7 +105,7 @@ def main():
                             last_seen_filename = fname
                             # Here you could trigger display / processing
                             update_display(epd)
-                            now = time.time() + 100  #display found image for up to 60 seconds
+                            now = time.time() + 10  #display found image for up to 60 seconds
                 time.sleep(POLL_INTERVAL)
             except KeyboardInterrupt:
                 break
